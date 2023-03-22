@@ -1,0 +1,21 @@
+.load{
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+}
+
+.img{
+    width: 100px;
+    height:100px;
+    animation: rotation 3s infinite linear;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate3d(0, 1, 0, 0deg);
+    }
+    to {
+        transform: rotate3d(0, 1, 0, 359deg);
+    }
+  }
