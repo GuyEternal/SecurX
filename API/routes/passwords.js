@@ -4,7 +4,8 @@ import Passwords from "./Models/Passwords.js";
 import bcrypt from "bcryptjs";
 import User from "./Models/User.js";
 import crypto from "crypto";
-
+import fs from "fs";
+import path from "path";
 
 const router =express.Router();
 const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
@@ -26,11 +27,10 @@ const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
 router.post('/input/:id', async (req, res) => {
   try {
     const { websiteName, websiteUsername, websitePassword } = req.body;
-    const salt = await bcrypt.genSaltSync(10);
-    const hashedPassword = await (websitePassword,salt);
+    
 
     // Encrypt the user's login password using the RSA public key
-    const encryptedPassword = crypto.publicEncrypt(publicKey, Buffer.from(hashedPassword)).toString('base64');
+    const encryptedPassword = crypto.publicEncrypt(publicKey, Buffer.from(websitePassword)).toString('base64');
     const userId = req.params.id;
     const user = await User.findById(userId);
     

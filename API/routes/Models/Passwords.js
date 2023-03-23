@@ -4,7 +4,7 @@ const PasswordSchema = new mongoose.Schema({
   websiteName: {
     type: String,
     required: "true" ,
-    unique: true
+    unique: false
   },
   websiteUsername: {
     type: String,
@@ -19,7 +19,7 @@ const PasswordSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    
+    unique: true
   }
 });
 

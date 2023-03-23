@@ -37,22 +37,19 @@ function Login(){
       const json = await res.json();
       console.log(json);
       console.log(res);
-      if (res.status===200) {
+      if (res.ok) {
         setIsLoggedIn(true);
         setShowLoading(true);
       setTimeout(() => {
         setShowLoading(false);
         history.push(`/Main/${json._id}`);
       }, 2000);
-      } else if(res.status===404){
-        setLoginFailed(true);
-      }
-      else if(res.status===400){
-        setLoginFailed(true);
-      }
+      } 
+      
      
     } catch (err) {
       console.error(err.message);
+      setLoginFailed(true);
     }
     
   }; 
