@@ -16,6 +16,12 @@ const UserSchema = new mongoose.Schema({
     required: "true"
     
   },
+  publicKey:{
+    type:String
+  },
+privateKey:{
+  type:String
+},
 
   date: {
     type: Date,

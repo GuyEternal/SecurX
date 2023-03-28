@@ -8,17 +8,6 @@ import fs from "fs";
 import path from "path";
 
 const router =express.Router();
-const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
-  modulusLength: 4096,
-  publicKeyEncoding: {
-    type: 'pkcs1',
-    format: 'pem',
-  },
-  privateKeyEncoding: {
-    type: 'pkcs1',
-    format: 'pem',
-  },
-});
 
 // Route for handling user input of login credentials for other websites
 
@@ -30,9 +19,10 @@ router.post('/input/:id', async (req, res) => {
     
 
     // Encrypt the user's login password using the RSA public key
-    const encryptedPassword = crypto.publicEncrypt(publicKey, Buffer.from(websitePassword)).toString('base64');
     const userId = req.params.id;
     const user = await User.findById(userId);
+    const encryptedPassword = crypto.publicEncrypt(user.publicKey, Buffer.from(websitePassword)).toString('base64');
+    
     
     
    
@@ -57,11 +47,12 @@ router.post('/input/:id', async (req, res) => {
 router.get('/login-credentials/:id', async (req, res) => {
     try {
       const userId = req.params.id;
+      const user = await User.findById(userId);
       const passwords = await Passwords.find({ user: userId}); // assuming the user is authenticated and has an _id field
-  
+      
       // Decrypt the encrypted passwords using the RSA private key and the stored email address
       const decryptedPasswords = passwords.map((password) => {
-        const decryptedPassword = crypto.privateDecrypt(privateKey, Buffer.from(password.websitePassword, 'base64')).toString('utf8');
+        const decryptedPassword = crypto.privateDecrypt(user.privateKey, Buffer.from(password.websitePassword, 'base64')).toString('utf8');
   
         return {
           websiteName: password.websiteName,
