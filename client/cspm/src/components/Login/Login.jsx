@@ -14,7 +14,7 @@ function Login(){
   });
   const history=useHistory();
   const { username, password } = formData;
-  const baseURL = 'http://localhost:3001/api/auth';
+  const baseURL = 'https://securex.onrender.com/api/auth';
   const handleChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 

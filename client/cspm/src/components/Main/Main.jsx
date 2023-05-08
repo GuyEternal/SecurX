@@ -9,7 +9,7 @@ const Main = () => {
   const [websitePassword, setWebsitePassword] = useState('');
   const [passwords, setPasswords] = useState([]);
   const { id: userId } = useParams();
-  const baseURL = 'http://localhost:3001/api/passwords';
+  const baseURL = 'https://securex.onrender.com/api/passwords';
   const [isLoading, setIsLoading] = useState(false);
 
   const handleAdd = () => {
