@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Route, BrowserRouter as Router, useParams } from "react-router-dom";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 import Login from "../Login/Login.jsx";
 import Register from "../Register/Register.jsx";
 import styles from "./home.module.css";
@@ -118,6 +118,21 @@ function Home() {
                   Place.
                 </p>
               </div>
+            </section>
+            <hr />
+            <section id="feature2" className={styles.feature1}>
+              
+              <div>
+                <h1>Secure Random Password Generator</h1>
+                <hr />
+                <p>
+                A password generator tool that creates random and unique passwords <br />
+                of customizable length, incorporating letters, numbers, and symbols. <br />
+                Provides a quick and easy solution for users to create strong passwords <br />
+                and enhance the security of their accounts.
+                </p>
+              </div>
+              <img src={desc1} alt="login" />
             </section>
             <footer>
               <hr />
