@@ -1,81 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 /* starting css */
-.home1
 * {
   margin: 0;
   padding: 0;
   font-family: "Montserrat", sans-serif;
 }
 
+.home1 {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
 /* navbar */
-.home1
+
 .header {
   display: flex;
   justify-content: space-between;
   padding: 7px;
   padding-top: 17px;
 }
-.home1
-.header div{
+
+.header div {
   display: flex;
   align-items: center;
 }
-.home1
-.header img{
+
+.header img {
   border-radius: 5px;
   padding: 2px;
   margin-left: 20px;
   width: 50px;
   height: auto;
 }
-.home1
-.header h1{
+
+.header h1 {
   color: whitesmoke;
-  font-family: 'Kanit', sans-serif;
+  font-family: "Kanit", sans-serif;
   font-size: 1.5rem;
-  
 }
-.home1
+
 nav ul {
   display: flex;
   justify-content: space-evenly;
   list-style: none;
   font-size: 1.1rem;
 }
-.home1
+
 nav li {
   padding: 3px 20px;
 }
-.home1
+
 nav a {
   text-decoration: none;
   color: white;
-  
 }
-.home1
+
 nav a:hover {
   text-decoration: underline;
   text-decoration-color: #009900;
   color: white;
   text-decoration-thickness: 2px;
 }
-.home1
+
 .header button {
   padding: 4px 6px;
   margin: 3px;
   margin-top: 0;
-  background-color: #009900;
+  background-color: #2ead2e;
   color: white;
   font-size: medium;
+  border: none;
+  padding: 10px;
+  border-radius: 200px;
 }
-.home1
+
 .header button:hover {
   cursor: pointer;
+  opacity: 0.8;
 }
 
 /* home */
-.home1
+
 .home {
   background-image: url("img/bg1.jpg");
   background-repeat: no-repeat;
@@ -85,67 +94,119 @@ nav a:hover {
   height: 100vh;
 }
 
-.home1
 .info {
   margin: 15px;
   padding: 8px;
-  color: white;
+  padding-top: 50px;
+  padding-left: 50px;
+  color: black;
 }
-.home1
-.info h1 {
+.info > h1 {
+  color: white;
   margin-top: 15px;
   font-size: 2.7rem;
 }
-.home1
-.info p {
+.info > p {
   color: white;
   margin-top: 20px;
   margin-bottom: 30px;
 }
-.home1
-.info li {
+.info >li {
   padding-top: 3px;
   list-style: none;
 }
 
 /* features */
-.home1
 .feature1 {
   display: flex;
   padding: 60px;
   padding-bottom: 40px;
   background-color: aliceblue;
 }
-.home1
-.feature1 img {
+.feature1 > img {
   width: 400px;
   height: auto;
   border-radius: 4px;
 }
-.home1
-.feature1 div {
+.feature1 > div {
   text-align: start;
   padding: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.home1
-.feature1 h1 {
+.feature1 > h1 {
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 1.7rem;
-
-  }
-  .home1
-.feature1 p {
+}
+.feature1 > p {
   padding-top: 10px;
+  color: black;
 }
 
-
 /* footer */
-footer p {
+footer > p {
   font-size: 0.9rem;
   text-align: center;
   margin: 15px;
+  color: black;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  /* Home */
+  .home {
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Header */
+  .header img {
+    width: 40px;
+  }
+
+  .header h1 {
+    font-size: 1.2rem;
+  }
+
+  nav ul {
+    font-size: 1rem;
+  }
+
+  .header button {
+    font-size: small;
+    padding: 8px;
+  }
+
+  /* Info */
+  .info {
+    padding: 10px;
+    padding-top: 30px;
+    padding-left: 30px;
+  }
+
+  .info > h1 {
+    font-size: 2rem;
+  }
+
+  .info > p {
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+
+  /* Feature1 */
+  .feature1 {
+    flex-direction: column;
+    padding: 30px;
+  }
+
+  .feature1 > img {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .feature1 > h1 {
+    font-size: 1.4rem;
+  }
 }
