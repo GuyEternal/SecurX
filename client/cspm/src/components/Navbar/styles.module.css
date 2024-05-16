@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+.fullContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: #000;
+  margin: 0;
+  padding: 0;
+}
+
+
+.logo {
+  font-size: 35px;
+}
+.logo {
+  font-size: large;
+  padding: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #18d15f;
+  text-decoration: none;
+}
+
+#click {
+  display: none;
+}
+
+header {
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 10%;
+  padding-right: 10%;
+  width: 100vw;
+}
+
+.nav__links {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin: 0;
+}
+
+.nav__links li {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.nav__links li a {
+  transition: all 0.3s ease 0s;
+}
+
+.nav__links li a:hover,
+.active {
+  color: #0088a9;
+}
+
+button {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: rgba(0, 136, 169, 1);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+button:hover {
+  background-color: rgba(0, 136, 169, 0.8);
+}
+
+.menu-btn {
+  color: white;
+  display: none;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+@media (max-width: 1250px) {
+  .nav__links {
+    position: fixed;
+    top: 80px;
+    left: -100%;
+    background-color: #24252a;
+    height: 100vh;
+    width: 100%;
+    display: block;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .cta {
+	display: flex;
+	flex-direction: column;
+  }
+
+  #click:not(:checked) ~ .nav__links {
+    left: -100%;
+  }
+
+  #click:not(:checked) ~ .cta {
+    left: -100%;
+  }
+
+  #click:checked ~ .nav__links {
+    left: 0%;
+  }
+
+  #click:checked ~ .cta {
+    left: 0%;
+  }
+
+  #click:checked ~ .menu-btn i:before {
+    content: "\f00d";
+  }
+
+  .nav__links li {
+    display: block;
+    margin-top: 40px;
+  }
+
+  .menu-btn {
+    display: inline-block;
+  }
+}

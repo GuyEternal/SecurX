@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import logo from "./img/logo.png";
 import desc1 from "./img/login1.png";
 import LoadingPage from "../Loading/Loading.jsx";
-import Main from "../Main/Main.jsx";
+import Main from "../Dashboard/Dashboard.jsx";
 
 function Home1({
   activeSection,
