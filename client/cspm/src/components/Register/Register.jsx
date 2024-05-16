@@ -13,7 +13,7 @@ function Register(){
   });
   const [isRegister,setIsRegister]= useState(false);
   const [error, setError] = useState('');
-  const baseURL = 'https://securex.onrender.com/api/auth';
+  const baseURL = 'http://localhost:3001/api/auth';
   const { username, email, password, password2 } = formData;
   const history = useHistory();
 

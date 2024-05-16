@@ -55,6 +55,7 @@ router.get('/login-credentials/:id', async (req, res) => {
         const decryptedPassword = crypto.privateDecrypt(user.privateKey, Buffer.from(password.websitePassword, 'base64')).toString('utf8');
   
         return {
+          websiteId: password._id,
           websiteName: password.websiteName,
           websiteUsername: password.websiteUsername,
           websitePassword: decryptedPassword,
@@ -69,5 +70,30 @@ router.get('/login-credentials/:id', async (req, res) => {
     }
   });
 
+  router.post('/show-password', async (req, res) => {
+    try {
+      const id = req.body.websiteId; 
+      const website= await Passwords.findById(id);
+      console.log(website);
+      const userId = website.user;
+      const user= await User.findById(userId);
+      const websitePassword=website.websitePassword;
+      const decryptedPassword = crypto.privateDecrypt(user.privateKey, Buffer.from(websitePassword, 'base64')).toString('utf8');
+      res.status(200).json({ websitepassword: decryptedPassword });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Something went wrong' });
+    }
+  });
+
+  router.delete('/delete/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      await Passwords.findByIdAndDelete(id);
+      res.status(200).json({ message: 'Website deleted successfully' });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to delete website' });
+    }
+  });
 
 export default router;
