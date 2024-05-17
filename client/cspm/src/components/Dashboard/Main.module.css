@@ -35,7 +35,7 @@
 input[type="text"],
 input[type="password"] {
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   border-radius: 5px;
   border: none;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
@@ -43,8 +43,8 @@ input[type="password"] {
 
 .add_btn,
 .view_btn {
-  padding: 10px 20px;
-  margin: 0;
+  padding: 5px 25px;
+  margin: 0px;
   border-radius: 5px;
   border: none;
   color: #fff;
@@ -88,7 +88,8 @@ input[type="password"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 500px;
+  height: 100%;
+
 }
 
 .passwords_container > h2 {
@@ -97,7 +98,7 @@ input[type="password"] {
 
 .pwd_box {
   background: white;
-  padding: 10px;
+  padding: 20px 10px;
   display: flex;
   height: 100%;
   width: 140%;
@@ -106,6 +107,7 @@ input[type="password"] {
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow-y: scroll;
+  max-height: 54vh; 
 }
 
 .password_card {
@@ -115,7 +117,7 @@ input[type="password"] {
   justify-content: space-between;
   width: 90%;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }

@@ -71,16 +71,16 @@ button {
   padding-bottom: 9px;
   padding-left: 25px;
   padding-right: 25px;
-  background-color: rgba(0, 136, 169, 1);
+  /* background-color: rgba(0, 136, 169, 1); */
   border: none;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease 0s;
 }
 
-button:hover {
+/* button:hover {
   background-color: rgba(0, 136, 169, 0.8);
-}
+} */
 
 .menu-btn {
   color: white;

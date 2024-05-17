@@ -3,7 +3,12 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "./Main.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt, faEye, faEyeSlash, faEdit } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrashAlt,
+  faEye,
+  faEyeSlash,
+  faEdit,
+} from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar/Navbar";
 
 const Dashboard = () => {
@@ -132,16 +137,16 @@ const Dashboard = () => {
               value={websitePassword}
               onChange={(e) => setWebsitePassword(e.target.value)}
             />
+            {editingPassword ? (
+              <button className={styles.add_btn} onClick={handleUpdate}>
+                Update
+              </button>
+            ) : (
+              <button className={styles.add_btn} onClick={handleAdd}>
+                Add
+              </button>
+            )}
           </div>
-          {editingPassword ? (
-            <button className={styles.add_btn} onClick={handleUpdate}>
-              Update
-            </button>
-          ) : (
-            <button className={styles.add_btn} onClick={handleAdd}>
-              Add
-            </button>
-          )}
         </div>
 
         {isLoading ? (
