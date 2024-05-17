@@ -95,5 +95,60 @@ router.get('/login-credentials/:id', async (req, res) => {
       res.status(500).json({ error: 'Failed to delete website' });
     }
   });
+  router.put('/edit/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { websiteName, websiteUsername, websitePassword } = req.body;
+      console.log(websiteName, websiteUsername, websitePassword)
+      // Fetch existing password
+      const currentWeb = await Passwords.findById(id);
+      const existingPassword = currentWeb.websitePassword;
+      if (!existingPassword) {
+        return res.status(404).json({ error: 'Password not found' });
+      }
+  
+      // Fetch user's private key
+      const userId = currentWeb.user;
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+  
+      // Decrypt existing password
+      const decryptedPassword = crypto.privateDecrypt(
+        user.privateKey,
+        Buffer.from(existingPassword, 'base64')
+      ).toString('utf8');
+      console.log(decryptedPassword);
+      // Update password fields if provided
+      if (websiteName) {
+        currentWeb.websiteName = websiteName;
+      }
+      if (websiteUsername) {
+        currentWeb.websiteUsername = websiteUsername;
+      }
+  
+      // Encrypt updated password
+      const encryptedPassword = crypto.publicEncrypt(
+        user.publicKey,
+        Buffer.from(JSON.stringify(websitePassword), 'utf8')
+      ).toString('base64');
+      
+      if (websitePassword) {
+        currentWeb.websitePassword = encryptedPassword;
+      }
+      // Update password in database
+      const updatedPassword = await Passwords.findByIdAndUpdate(
+        id,
+        { websiteName, websiteUsername, websitePassword: encryptedPassword },
+        { new: true }
+      );
+  
+      res.status(200).json({ message: 'Website updated successfully', updatedPassword });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to update website' });
+    }
+  });
 
 export default router;

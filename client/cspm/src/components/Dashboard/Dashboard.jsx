@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "./Main.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt, faEye, faEyeSlash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar/Navbar";
 
 const Dashboard = () => {
@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [websiteUsername, setWebsiteUsername] = useState("");
   const [websitePassword, setWebsitePassword] = useState("");
   const [passwords, setPasswords] = useState([]);
+  const [editingPassword, setEditingPassword] = useState(null);
   const { id: userId } = useParams();
   const baseURL = "http://localhost:3001/api/passwords";
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +26,6 @@ const Dashboard = () => {
     axios
       .post(`${baseURL}/input/${userId}`, newWebsite)
       .then((res) => {
-        console.log(res.data);
         setWebsiteName("");
         setWebsiteUsername("");
         setWebsitePassword("");
@@ -40,7 +40,6 @@ const Dashboard = () => {
     axios
       .get(`${baseURL}/login-credentials/${userId}`)
       .then((res) => {
-        console.log(res.data);
         setPasswords(res.data.passwords);
         setIsLoading(false);
       })
@@ -59,7 +58,6 @@ const Dashboard = () => {
     axios
       .post(`${baseURL}/show-password`, { websiteId })
       .then((res) => {
-        console.log(res.data);
         const decryptedPassword = res.data.websitepassword;
         setPasswords((prevPasswords) => {
           const newPasswords = [...prevPasswords];
@@ -75,10 +73,35 @@ const Dashboard = () => {
     axios
       .delete(`${baseURL}/delete/${id}`)
       .then((res) => {
-        console.log(res.data);
         setPasswords((prevPasswords) =>
           prevPasswords.filter((password) => password._id !== id)
         );
+        handleView();
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const handleEdit = (password) => {
+    setEditingPassword(password);
+    setWebsiteName(password.websiteName);
+    setWebsiteUsername(password.websiteUsername);
+    setWebsitePassword(password.websitePassword);
+  };
+
+  const handleUpdate = () => {
+    const updatedWebsite = {
+      websiteName,
+      websiteUsername,
+      websitePassword,
+    };
+
+    axios
+      .put(`${baseURL}/edit/${editingPassword.websiteId}`, updatedWebsite)
+      .then((res) => {
+        setEditingPassword(null);
+        setWebsiteName("");
+        setWebsiteUsername("");
+        setWebsitePassword("");
         handleView();
       })
       .catch((err) => console.error(err));
@@ -89,7 +112,7 @@ const Dashboard = () => {
       <Navbar />
       <div className={styles.main_container}>
         <div className={styles.add_container}>
-          <h2>Add a new website:</h2>
+          <h2>{editingPassword ? "Edit website:" : "Add a new website:"}</h2>
           <div className={styles.input_container}>
             <input
               type="text"
@@ -110,9 +133,15 @@ const Dashboard = () => {
               onChange={(e) => setWebsitePassword(e.target.value)}
             />
           </div>
-          <button className={styles.add_btn} onClick={handleAdd}>
-            Add
-          </button>
+          {editingPassword ? (
+            <button className={styles.add_btn} onClick={handleUpdate}>
+              Update
+            </button>
+          ) : (
+            <button className={styles.add_btn} onClick={handleAdd}>
+              Add
+            </button>
+          )}
         </div>
 
         {isLoading ? (
@@ -138,22 +167,36 @@ const Dashboard = () => {
                     <p className={styles.password_title}>
                       <strong>Password:</strong>
                     </p>
-                    <button
-                      className={styles.show_password_btn}
-                      onClick={() => {
-                        togglePasswordVisibility(index, password.websiteId);
-                      }}
-                    >
-                      {password.showPassword
-                        ? password.websitePassword
-                        : "Show Password"}
-                    </button>
-                    <button
-                      className={styles.delete_password_btn}
-                      onClick={() => handleDelete(password.websiteId)}
-                    >
-                      <FontAwesomeIcon icon={faTrashAlt} />
-                    </button>
+                    <div className={styles.password_field}>
+                      <input
+                        type={password.showPassword ? "text" : "password"}
+                        value={password.websitePassword}
+                        readOnly
+                        className={styles.password_input}
+                      />
+                      <button
+                        className={styles.show_password_btn}
+                        onClick={() => {
+                          togglePasswordVisibility(index, password.websiteId);
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          icon={password.showPassword ? faEyeSlash : faEye}
+                        />
+                      </button>
+                      <button
+                        className={styles.edit_password_btn}
+                        onClick={() => handleEdit(password)}
+                      >
+                        <FontAwesomeIcon icon={faEdit} />
+                      </button>
+                      <button
+                        className={styles.delete_password_btn}
+                        onClick={() => handleDelete(password.websiteId)}
+                      >
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
