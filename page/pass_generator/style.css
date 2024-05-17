@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #92eff7; /* Light blue background */
+  color: #000; /* Black text color */
+  font-family: 'Muli';
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  padding: 10px;
+  margin: 0;
+}
+
+h2 {
+  margin: 10px 0 20px;
+  text-align: center;
+  font-weight: 1000;
+}
+
+.container {
+  background-color: #fff; /* White container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px; /* Rounded corners for the container */
+  padding: 20px;
+  width: 350px;
+  max-width: 100%;
+}
+
+.result-container {
+  background-color: rgba(0, 0, 0, 0.247); /* Transparent black */
+  display: flex;
+  border-radius: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 12px 10px;
+  height: 50px;
+  width: 100%;
+}
+
+.result-container #result {
+  word-wrap: break-word;
+  max-width: calc(100% - 40px);
+}
+
+.result-container .btn {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 50%; /* Round button */
+}
+
+.btn {
+  border-radius: 5px;
+  border: none;
+  background-color: #3498db; /* Blue button */
+  color: #fff;
+  font-size: 16px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+}
+
+.btn-large {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+  margin-right: 8px; /* Increased margin between checkboxes */
+}
+
+/* Input styling */
+input[type="number"] {
+  padding: 10px; /* Adjusted padding */
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 30%; /* Increased width */
+}
