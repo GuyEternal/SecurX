@@ -1,33 +1,35 @@
 import User from "../routes/Models/User.js"
 import bcrypt from "bcryptjs"
 import { createError } from "../utils/error.js";
-import keyPair from "../routes/keyPair.js";
+import KeyPair from "../routes/keyPair.js";
+import { encryptPrivateKey } from "../utils/KeyHandling.js";
 
-
-export const register= async(req,res,next)=>{
+export const register = async (req, res, next) => {
     try {
         const salt = await bcrypt.genSaltSync(10);
-        const hashPassword = await bcrypt.hashSync(req.body.password,salt);
+        const hashPassword = await bcrypt.hashSync(req.body.password, salt);
         
-        const KeyPair = new keyPair();
+        const key = new KeyPair();
+        const publicKey = key.publicKey;
+        const privateKey = key.privateKey;
 
-        const newUser= new User({
-            username:req.body.username,
-            email:req.body.email,
-            password:hashPassword,
-            publicKey: KeyPair.publicKey,
-            privateKey:KeyPair.privateKey
-        })
-        
-        await newUser.save()
+        // Encrypt the private key
+        const encryptedPrivateKey = encryptPrivateKey(privateKey);
 
-        res.status(200).json("User has been created!")
-        
+        const newUser = new User({
+            username: req.body.username,
+            email: req.body.email,
+            password: hashPassword,
+            publicKey: publicKey,
+            privateKey: encryptedPrivateKey
+        });
+
+        await newUser.save();
+        res.status(200).json("User has been created!");
     } catch (err) {
-        next(err)
-        
+        next(err);
     }
-}
+};
  
 export const login= async(req,res,next)=>{
     try {
