@@ -1,38 +1,43 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Route, BrowserRouter as Router } from "react-router-dom";
-import Login from "../Login/Login.jsx";
-import Register from "../Register/Register.jsx";
-import styles from "./home.module.css";
+// Home/Home.jsx
+import React, { useState, useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
-import logo from "./img/logo.png";
-import desc1 from "./img/login1.png";
-import LoadingPage from "../Loading/Loading.jsx";
-import Main from "../Dashboard/Dashboard.jsx";
+import styles from "./home.module.css"; // assuming you have a CSS module
+import logo from "./img/logo.png"; // assuming you have a logo image
+import desc1 from "./img/bg1.jpg"; // assuming you have an image
+import LoadingPage from "../Loading/Loading.jsx"; // assuming you have a LoadingPage component
 
-function Home1({
-  activeSection,
-  setActiveSection,
-  showLoading,
-  setShowLoading,
-  handleClick,
-}) {
+const Home = () => {
+  const [activeSection, setActiveSection] = useState("home");
+  const [showLoading, setShowLoading] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    const section = document.getElementById(activeSection);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [activeSection]);
+
+  const handleClick = (event, sectionId) => {
+    event.preventDefault();
+    setActiveSection(sectionId);
+  };
 
   const handleClick1 = useCallback(() => {
     setShowLoading(true);
-    setTimeout(() => {
-      setShowLoading(false);
+    // setTimeout(() => {
+      // setShowLoading(false);
       history.push("/login");
-    }, 2000);
-  }, [history, setShowLoading]);
+    // }, 2000);
+  }, [history]);
 
   const handleClick2 = useCallback(() => {
     setShowLoading(true);
-    setTimeout(() => {
-      setShowLoading(false);
+    // setTimeout(() => {
+      // setShowLoading(false);
       history.push("/register");
-    }, 2000);
-  }, [history, setShowLoading]);
+    // }, 2000);
+  }, [history]);
 
   return (
     <div>
@@ -46,7 +51,6 @@ function Home1({
                 <img src={logo} alt="logo" />
                 <h1>SecurX</h1>
               </div>
-
               <nav>
                 <ul>
                   <li>
@@ -54,7 +58,7 @@ function Home1({
                       href="#home"
                       onClick={(event) => handleClick(event, "home")}
                     >
-                      Home{" "}
+                      Home
                     </a>
                   </li>
                   <li>
@@ -62,7 +66,7 @@ function Home1({
                       href="#feature1"
                       onClick={(event) => handleClick(event, "feature1")}
                     >
-                      Features{" "}
+                      Features
                     </a>
                   </li>
                 </ul>
@@ -74,10 +78,9 @@ function Home1({
             </header>
             <div className={styles.info}>
               <h1>
-                SecurX - <br />
-                The Password Protector <br />
-                Organized, Secure, <br />
-                Efficient
+                The Organized, Secure, <br />
+                Efficient <br />
+                Password Manager
               </h1>
               <p>
                 Store your passwords in a secure, private storage facility{" "}
@@ -93,7 +96,7 @@ function Home1({
               <h1>Effortlessly Secure Your Data with Just One Tap</h1>
               <hr />
               <p>
-                Say Goodbye to Scattered Sticky Notes and Hello to SecurX Your
+                Say Goodbye to Scattered Sticky Notes and hello to SecurX your
                 Safe Haven for All Things Sensitive. <br />
                 Store Passwords, Credit Cards and Personal Data Safely in One
                 Place.
@@ -125,47 +128,6 @@ function Home1({
       )}
     </div>
   );
-}
-
-function Home() {
-  const [activeSection, setActiveSection] = useState("home");
-  const [showLoading, setShowLoading] = useState(false);
-
-  useEffect(() => {
-    const section = document.getElementById(activeSection);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [activeSection]);
-
-  const handleClick = (event, sectionId) => {
-    event.preventDefault();
-    setActiveSection(sectionId);
-  };
-
-  return (
-    <div>
-      <Router>
-        <Route
-          exact
-          path="/"
-          render={(props) => (
-            <Home1
-              {...props}
-              activeSection={activeSection}
-              setActiveSection={setActiveSection}
-              showLoading={showLoading}
-              setShowLoading={setShowLoading}
-              handleClick={handleClick}
-            />
-          )}
-        />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/Main/:id" component={Main} />
-      </Router>
-    </div>
-  );
-}
+};
 
 export default Home;

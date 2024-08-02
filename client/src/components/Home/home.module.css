@@ -4,7 +4,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: "DM Sans", sans-serif;
 }
 
 .home1 {
@@ -31,10 +31,10 @@
 
 .header img {
   border-radius: 5px;
-  padding: 2px;
-  margin-left: 20px;
-  width: 50px;
-  height: auto;
+  /* padding: 2px; */
+  /* margin-left: 20px; */
+  width: 40px;
+  /* height: auto; */
 }
 
 .header h1 {
@@ -67,15 +67,15 @@ nav a:hover {
 }
 
 .header button {
-  padding: 4px 6px;
+  /* padding: 4px 6px; */
   margin: 3px;
   margin-top: 0;
   background-color: #2ead2e;
   color: white;
   font-size: medium;
-  border: none;
-  padding: 10px;
-  border-radius: 200px;
+  /* border: none; */
+  /* padding: 10px; */
+  /* border-radius: 200px; */
 }
 
 .header button:hover {
@@ -111,7 +111,7 @@ nav a:hover {
   margin-top: 20px;
   margin-bottom: 30px;
 }
-.info >li {
+.info > li {
   padding-top: 3px;
   list-style: none;
 }

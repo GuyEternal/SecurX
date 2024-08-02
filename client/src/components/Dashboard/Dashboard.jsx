@@ -10,6 +10,7 @@ import {
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar/Navbar";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Dashboard = () => {
   const [websiteName, setWebsiteName] = useState("");
@@ -18,8 +19,9 @@ const Dashboard = () => {
   const [passwords, setPasswords] = useState([]);
   const [editingPassword, setEditingPassword] = useState(null);
   const { id: userId } = useParams();
-  const baseURL = "http://localhost:3001/api/passwords";
+  const baseURL = process.env.REACT_APP_BACKEND_URL + "/passwords";
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
 
   const handleAdd = () => {
     const newWebsite = {
@@ -54,8 +56,25 @@ const Dashboard = () => {
       });
   };
 
+  const checkID = async () => {
+    const response = await axios.get(
+      process.env.REACT_APP_BACKEND_URL + `/auth/checkAuth`,
+      { withCredentials: true }
+    );
+    if (
+      response.data.success & (response.data.userID !== userId) ||
+      !response.data.success
+    ) {
+      history.push("/login");
+    }
+  };
+
   useEffect(() => {
     handleView();
+  }, []);
+
+  useEffect(() => {
+    checkID();
   }, []);
 
   const togglePasswordVisibility = (index, id) => {

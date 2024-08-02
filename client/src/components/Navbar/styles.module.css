@@ -28,15 +28,14 @@
 }
 
 header {
-  position: fixed;
   display: flex;
-  justify-content: flex-end;
+  justify-content: stretch;
   align-items: flex-end;
   padding-top: 30px;
   padding-bottom: 30px;
   padding-left: 10%;
   padding-right: 10%;
-  width: 100vw;
+  /* width: 100%; */
 }
 
 .nav__links {
