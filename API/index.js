@@ -1,10 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import testRoute from "./routes/test.js";
 import authRoute from "./routes/auth.js";
 import usersRoute from "./routes/users.js";
 import passwordsRoute from "./routes/passwords.js";
-import router from "./routes/auth.js";
 import cors from "cors";
 import session from "express-session";
 import cookieParser from "cookie-parser";
@@ -50,7 +50,7 @@ app.use(cors({
     stack: err.stack
   })
 });
-app.use("/", router)
+app.use("/", testRoute);
 app.use(express.json())
 app.use("/api/auth", authRoute)
 app.use("/api/users", usersRoute);
