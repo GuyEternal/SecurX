@@ -17,4 +17,4 @@ jobs:
         run: sudo docker container rm -f api-securx || true
 
       - name: Run Docker Container
-        run: sudo docker run -d -p 3001:3001 --env-file "/home/ubuntu/apienv/.env" --name api-securx ${{secrets.DOCKER_USERNAME}}/api-securx:latest
+        run: sudo docker run -d -p 3001:3001 -v /home/ubuntu/apienv/.env:/app/environment/.env --name api-securx ${{secrets.DOCKER_USERNAME}}/api-securx:latest
