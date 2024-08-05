@@ -38,7 +38,7 @@ export const register = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
     try {
-        console.log(req);
+        // console.log(req);
         const { username, password } = req.body;
         if (!(username && password)) {
             return res.status(400).send("Please enter all the information");
@@ -53,25 +53,34 @@ export const login = async (req, res, next) => {
                 return res.status(400).send("Invalid credentials");
             }
             // If the password is correct, generate a token:
-            console.log(currUser);
-            console.log(currUser._id);
+            // console.log(currUser);
+            // console.log(currUser._id);
             const token = jwt.sign({ id: currUser._id, username, email: currUser.email }, process.env.SECRET_KEY, {
                 expiresIn: "1d",
             });
             currUser.token = token;
             currUser.password = undefined;
             // send cookies to the client:
-            console.log(token);
+            // console.log(token);
+            // Use for local development:
+            // res.cookie("token", token, {
+            //     httpOnly: true,
+            //     maxAge: 24 * 60 * 60 * 1000,
+            //     secure: false, // Set to true in production with HTTPS
+            //     sameSite: "Lax" // or remove for local development
+            // }).status(200).send({ message: "You have successfully logged in!", currUser, token, success: true });
+            // Use for prod:
             res.cookie("token", token, {
                 httpOnly: true,
                 maxAge: 24 * 60 * 60 * 1000,
-                secure: false, // Set to true in production with HTTPS
-                sameSite: "Lax" // or remove for local development
+                secure: process.env.NODE_ENV === "production", // Set to true in production
+                sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax", // Adjust as needed (Strict, Lax, or None)
             }).status(200).send({ message: "You have successfully logged in!", currUser, token, success: true });
+
         });
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         res.send(error);
     }
 }
@@ -88,10 +97,10 @@ const verifyCheckAuth = (req, res, token) => {
     return new Promise((resolve, reject) => {
         jwt.verify(token, process.env.SECRET_KEY, (err, payload) => {
             if (err) {
-                console.log("This is the error when token is verified unseucde: ", err);
+                // console.log("This is the error when token is verified unseucde: ", err);
                 reject(new Error("Token verification failed"));
             } else {
-                console.log("This is when token is verified successfully:");
+                // console.log("This is when token is verified successfully:");
                 req.userID = payload.id;
                 req.username = payload.username;
                 resolve();
@@ -107,7 +116,7 @@ export const checkAuth = async (req, res) => {
         if (!token) {
             return res.status(200).json({ success: false, message: "No token provided" });
         }
-        console.log(token, req.userID);
+        // console.log(token, req.userID);
         await verifyCheckAuth(req, res, token);
         return res.status(200).json({
             success: true,

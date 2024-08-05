@@ -17,13 +17,13 @@ function Login() {
   const baseURL = process.env.REACT_APP_BACKEND_URL + "/auth";
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(`${baseURL}/login`);
+    // console.log(`${baseURL}/login`);
   };
 
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    console.log(`${baseURL}/login`);
+    // console.log(`${baseURL}/login`);
 
     try {
       const res = await axios.post(
@@ -39,7 +39,7 @@ function Login() {
         }
       );
 
-      console.log(res);
+      // console.log(res);
       if (res.status === 200) {
         // Check for a successful response status
         setIsLoggedIn(true);

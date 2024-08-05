@@ -50,15 +50,18 @@ app.use(cors({
     stack: err.stack
   })
 });
-app.use("/", testRoute);
 app.use(express.json())
-app.use("/api/auth", authRoute)
-app.use("/api/users", usersRoute);
-app.use("/api/passwords", passwordsRoute);
+
+app.use("/", testRoute);
+app.use("/auth", authRoute)
+app.use("/users", usersRoute);
+app.use("/passwords", passwordsRoute);
+
 
 
 app.listen(3001, (req, res) => {
   connect()
   console.log("Server started on port 3001!")
+  console.log(process.env.NODE_ENV);
 });
 
