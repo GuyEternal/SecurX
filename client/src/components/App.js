@@ -8,6 +8,15 @@ import Main from '../components/Dashboard/Dashboard.jsx'; // assuming you have a
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
+const NotFound = () => {
+  return (
+    <>
+      <h1 style={{ textAlign: "center", padding: "2rem" }}>404 - Page Not Found</h1>
+      <p style={{ textAlign: "center", padding: "2rem" }}>Sorry, the page you are looking for could not be found.</p>
+    </>
+  );
+};
+
 function App() {
 
   return (
@@ -16,6 +25,7 @@ function App() {
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/Main/:id" component={Main} />
+      <Route path="*" component={NotFound} />
     </Router>
   );
 }
