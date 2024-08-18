@@ -101,10 +101,10 @@ router.put('/edit/:id', verifyToken, async (req, res) => {
 
         // Fetch existing password
         const currentWeb = await Passwords.findById(id);
-        const existingPassword = currentWeb.websitePassword;
-        if (!existingPassword) {
-            return res.status(404).json({ error: 'Password not found' });
-        }
+        // const existingPassword = currentWeb.websitePassword;
+        // if (!existingPassword) {
+        //     return res.status(404).json({ error: 'Password not found' });
+        // }
 
         // Fetch user's private key
         const userId = currentWeb.user;
@@ -114,16 +114,16 @@ router.put('/edit/:id', verifyToken, async (req, res) => {
         }
 
         // Decrypt existing password
-        const decryptedPrivateKey = decryptPrivateKey(user.privateKey);
-        const decryptedPassword = crypto.privateDecrypt(decryptedPrivateKey, Buffer.from(existingPassword, 'base64')).toString('utf8');
+        // const decryptedPrivateKey = decryptPrivateKey(user.privateKey);
+        // const decryptedPassword = crypto.privateDecrypt(decryptedPrivateKey, Buffer.from(existingPassword, 'base64')).toString('utf8');
 
-        // Update password fields if provided
-        if (websiteName) {
-            currentWeb.websiteName = websiteName;
-        }
-        if (websiteUsername) {
-            currentWeb.websiteUsername = websiteUsername;
-        }
+        // // Update password fields if provided
+        // if (websiteName) {
+        //     currentWeb.websiteName = websiteName;
+        // }
+        // if (websiteUsername) {
+        //     currentWeb.websiteUsername = websiteUsername;
+        // }
 
         // Encrypt updated password
         const encryptedPassword = crypto.publicEncrypt(user.publicKey, Buffer.from(websitePassword, 'utf8')).toString('base64');

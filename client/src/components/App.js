@@ -21,11 +21,13 @@ function App() {
 
   return (
     <Router>
+      <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/Main/:id" component={Main} />
-      <Route path="*" component={NotFound} />
+      <Route component={NotFound} />
+      </Switch>
     </Router>
   );
 }
