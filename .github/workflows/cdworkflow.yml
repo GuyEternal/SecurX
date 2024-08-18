@@ -11,7 +11,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Clean up Docker (Free up disk space)
-        run: sudo docker rm api-securx
+        run: sudo docker rm api-securx || true
 
       - name: Verify with df
         run: sudo docker system df
