@@ -11,13 +11,16 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Clean up Docker (Free up disk space)
-        run: sudo docker system prune --all --force --volumes
+        run: sudo docker rm api-securx
+
+      - name: Verify with df
+        run: sudo docker system df
 
       - name: Pull Docker image
         run: sudo docker pull ${{secrets.DOCKER_USERNAME}}/api-securx:latest
 
-      - name: Delete Old Container
-        run: sudo docker container rm -f api-securx || true
+      # - name: Delete Old Container
+      #   run: sudo docker container rm -f api-securx || true
 
       - name: Run Docker Container
         run: |
